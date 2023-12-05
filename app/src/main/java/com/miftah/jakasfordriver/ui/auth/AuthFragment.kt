@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.miftah.jakasfordriver.databinding.FragmentAuthBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AuthFragment : Fragment() {
 
     private var _binding : FragmentAuthBinding? = null

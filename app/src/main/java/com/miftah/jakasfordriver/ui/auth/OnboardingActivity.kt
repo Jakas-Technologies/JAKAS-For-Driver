@@ -3,7 +3,9 @@ package com.miftah.jakasfordriver.ui.auth
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.miftah.jakasfordriver.databinding.ActivityOnboardingBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class OnboardingActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityOnboardingBinding
