@@ -1,12 +1,16 @@
 package com.miftah.jakasfordriver.ui.auth
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.miftah.jakasfordriver.R
+import androidx.appcompat.app.AppCompatActivity
+import com.miftah.jakasfordriver.databinding.ActivityOnboardingBinding
 
 class OnboardingActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityOnboardingBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_onboarding)
+        binding = ActivityOnboardingBinding.inflate(layoutInflater)
+        setContentView(binding.root)
     }
 }
