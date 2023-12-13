@@ -1,7 +1,5 @@
 package com.miftah.jakasfordriver.utils
 
-import android.graphics.Color
-
 object Constants {
     const val BASE_URL = "http://34.101.89.120:4000/"
 
@@ -9,10 +7,15 @@ object Constants {
 
     const val KEY_MAP = "AIzaSyAttBc9n2uWPiFJ9B79kRsDVU1s6MkdEUs"
 
-    const val POSITION_LAT_LNG = "positionLatLng"
-    const val DESTINATION_LAT_LNG = "destinationLatLng"
+    const val ACTION_START_SERVICE = "ACTION_START_SERVICE"
+    const val ACTION_STOP_SERVICE = "ACTION_STOP_SERVICE"
 
-    const val POLYLINE_COLOR = Color.RED
-    const val POLYLINE_WIDTH = 8f
-    const val MAP_ZOOM = 15f
+    const val NOTIFICATION_CHANNEL_ID = "location_tracker_channel"
+    const val NOTIFICATION_CHANNEL_NAME = "Location Tracking"
+    const val NOTIFICATION_ID = 1
+
+    const val LOCATION_UPDATE_INTERVAL = 3000L
+    const val FASTEST_LOCATION_INTERVAL = 1000L
+
+    const val MAP_ZOOM = 20f
 }
