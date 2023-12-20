@@ -13,9 +13,7 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.Priority
 import com.google.android.gms.maps.model.LatLng
-import com.google.gson.Gson
 import com.miftah.jakasfordriver.R
-import com.miftah.jakasfordriver.core.data.remote.response.GeoGamma
 import com.miftah.jakasfordriver.core.data.remote.socket.SocketHandlerService
 import com.miftah.jakasfordriver.ui.maps.MapsActivity
 import com.miftah.jakasfordriver.utils.Constants
@@ -50,6 +48,13 @@ class LocationTrackerService : LifecycleService() {
         isTracking.observe(this) {
             updateLocationTracking(it)
         }
+
+        socketHandlerService.getPassengerPosition { jsonDataList ->
+            jsonDataList.forEach { jsonData ->
+                Timber.d("get Loc")
+//                val geoJson = Gson().fromJson(jsonData, GeoGamma::class.java)
+            }
+        }
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -78,6 +83,7 @@ class LocationTrackerService : LifecycleService() {
     }
 
     private fun postInitialValues() {
+        socketHandlerService.initSession()
         userPosition.postValue(mutableListOf())
         isTracking.postValue(true)
         angkotPosition.postValue(LatLng(0.0, 0.0))
@@ -113,17 +119,16 @@ class LocationTrackerService : LifecycleService() {
                     )
                     angkotPosition.postValue(lastLatLng)
                     socketHandlerService.sendDriverPosition(lastLatLng)
-                    socketHandlerService.getPassengerPosition {
-                        Timber.d("what")
-                    }
-                    Timber.d("NEW LOCATION: ${location.latitude}, ${location.longitude}")
+//                    socketHandlerService.getPassengerPosition {
+//                        Timber.d("what")
+//                    }
+//                    Timber.d("NEW LOCATION: ${location.latitude}, ${location.longitude}")
                 }
             }
         }
     }
 
     private fun startForegroundService() {
-        socketHandlerService.establishConnection()
         val notificationBuilder = NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
             .setAutoCancel(false)
             .setOngoing(true)
@@ -132,14 +137,6 @@ class LocationTrackerService : LifecycleService() {
             .setContentIntent(pendingIntent())
 
         startForeground(NOTIFICATION_ID, notificationBuilder.build())
-    }
-
-    private fun getAllAngkotDirection() {
-        socketHandlerService.getPassengerPosition { jsonDataList ->
-            jsonDataList.forEach { jsonData ->
-                val geoJson = Gson().fromJson(jsonData, GeoGamma::class.java)
-            }
-        }
     }
 
     private fun pendingIntent(): PendingIntent {

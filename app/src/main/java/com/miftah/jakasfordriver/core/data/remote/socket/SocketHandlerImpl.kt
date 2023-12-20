@@ -1,12 +1,15 @@
 package com.miftah.jakasfordriver.core.data.remote.socket
 
 import com.google.android.gms.maps.model.LatLng
+import com.google.gson.Gson
 import com.miftah.jakasfordriver.core.data.remote.response.Coords
 import com.miftah.jakasfordriver.core.data.remote.response.GeoGamma
 import com.miftah.jakasfordriver.utils.Resource
 import io.socket.client.IO
 import io.socket.client.Socket
+import org.json.JSONObject
 import timber.log.Timber
+import java.net.URISyntaxException
 import javax.inject.Inject
 
 class SocketHandlerImpl @Inject constructor() : SocketHandlerService {
@@ -15,26 +18,29 @@ class SocketHandlerImpl @Inject constructor() : SocketHandlerService {
 
     override fun initSession(): Resource<Unit> {
         return try {
-            val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZmlyc3ROYW1lIjoiZ2FtbWEiLCJsYXN0TmFtZSI6InJpenF1aGEiLCJlbWFpbCI6ImdhbW1hQGVtYWlsLmNvbSIsInBhc3N3b3JkIjoid29yZCIsImNyZWF0ZWRBdCI6IjIwMjMtMTItMTJUMTE6MTE6MzAuNDMxWiIsInVwZGF0ZWRBdCI6IjIwMjMtMTItMTJUMTE6MTE6MzAuNDMxWiIsImlhdCI6MTcwMjM5NTExM30.Yd0Y2Y45L0IsLrSMouC22ov3WRj6Ls3MHi2vs7Qbins"
+            val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3ROYW1lIjoiemlxdSIsImxhc3ROYW1lIjoiZGlzYXN0cmEiLCJlbWFpbCI6InppcXVAZW1haWwuY29tIiwicm9sZSI6ImRyaXZlciIsInBhc3N3b3JkIjoicGFzcyIsImNyZWF0ZWRBdCI6IjIwMjMtMTItMTNUMTU6NTE6MTQuMTQzWiIsInVwZGF0ZWRBdCI6IjIwMjMtMTItMTNUMTU6NTE6MTQuMTQzWiIsImlhdCI6MTcwMjk3NTQ0N30.pdSyv4Fai_2wTdM88Pk21RY6t5uWhHR0kwqd2YeZI0Y"
             val option = IO.Options.builder().setExtraHeaders(mapOf("auth" to listOf("Bearer $token"))).build()
-            socket = IO.socket("http://34.128.67.252:3000/",option)
-            if (socket?.isActive == true) {
+            socket = IO.socket("https://34.128.115.212.nip.io/",option)
+            socket?.connect()
+            if (socket?.connected() == true) {
                 Timber.d("Connect")
                 Resource.Success(Unit)
             } else {
                 Timber.e("Couldn't establish a connection.")
                 Resource.Error("Couldn't establish a connection.")
             }
-        } catch (e: Exception) {
+        } catch (e: URISyntaxException) {
             Timber.e(e)
             Resource.Error(e.localizedMessage ?: "Unknown error")
         }
     }
 
     override fun getPassengerPosition(callback: (List<String>) -> Unit) {
-        socket?.on("user-move") { data ->
+        socket?.on("usermove") { data ->
             Timber.d("Get Loc")
-            callback(data.map { it as String })
+//            callback(data.map { it as String })
+//            val data = data[0] as JSONObject
+//            Timber.d(data.getString("id"))
         }
     }
 
@@ -53,12 +59,10 @@ class SocketHandlerImpl @Inject constructor() : SocketHandlerService {
             )
         )
 
-        Timber.d("Share Loc")
-        socket?.emit("user-move", jsonObject)
-    }
-
-    override fun establishConnection() {
-        socket?.connect()
+//        Timber.d("Share Loc")
+        val gson = Gson()
+        val data = JSONObject(gson.toJson(jsonObject))
+        socket?.emit("drivermove", data)
     }
 
     override fun closeConnection() {

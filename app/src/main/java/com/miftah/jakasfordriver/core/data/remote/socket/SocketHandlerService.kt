@@ -11,7 +11,5 @@ interface SocketHandlerService {
 
     fun sendDriverPosition(driverPosition: LatLng)
 
-    fun establishConnection()
-
     fun closeConnection()
 }
