@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/maps_graph"
+    app:startDestination="@id/mapMainFragment">
+
+    <fragment
+        android:id="@+id/mapListFragment"
+        android:name="com.miftah.jakasfordriver.ui.maps.MapListFragment"
+        android:label="fragment_map_list"
+        tools:layout="@layout/fragment_map_list" />
+    <fragment
+        android:id="@+id/mapMainFragment"
+        android:name="com.miftah.jakasfordriver.ui.maps.MapMainFragment"
+        android:label="fragment_map_main"
+        tools:layout="@layout/fragment_map_main" />
+</navigation>
