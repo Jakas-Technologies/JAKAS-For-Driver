@@ -46,10 +46,14 @@ android {
 }
 
 dependencies {
-    // Viewpagger
+    // glide
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    ksp("com.github.bumptech.glide:ksp:4.14.2")
+
+    // Viewpager
     implementation("androidx.viewpager2:viewpager2:1.0.0")
 
-    //
+    // serialization
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
 
     // Socket
