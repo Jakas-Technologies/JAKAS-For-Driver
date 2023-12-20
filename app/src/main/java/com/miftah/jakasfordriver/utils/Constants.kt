@@ -18,4 +18,6 @@ object Constants {
     const val FASTEST_LOCATION_INTERVAL = 100L
 
     const val MAP_ZOOM = 20f
+
+
 }

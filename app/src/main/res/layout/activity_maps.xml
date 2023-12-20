@@ -8,13 +8,32 @@
     android:layout_height="match_parent"
     tools:context=".ui.maps.MapsActivity">
 
-    <fragment
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        app:tabTextColor="@android:color/white"
+        map:layout_constraintTop_toTopOf="parent"
+        map:layout_constraintEnd_toEndOf="parent"
+        map:layout_constraintStart_toStartOf="parent"/>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        map:layout_constraintTop_toBottomOf="@+id/tabs"
+        map:layout_constraintStart_toStartOf="parent"
+        map:layout_constraintEnd_toEndOf="parent"
+        map:layout_constraintBottom_toBottomOf="parent"/>
+
+    <!--<fragment
         android:id="@+id/fragment_container_main"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:defaultNavHost="true"
-        app:navGraph="@navigation/maps_graph" />
+        app:navGraph="@navigation/maps_graph" />-->
 
     <!--<androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_share_location"
