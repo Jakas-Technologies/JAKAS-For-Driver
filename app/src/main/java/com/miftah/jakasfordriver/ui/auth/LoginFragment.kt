@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.miftah.jakasfordriver.R
 import com.miftah.jakasfordriver.databinding.FragmentLoginBinding
 import com.miftah.jakasfordriver.utils.Result
 import dagger.hilt.android.AndroidEntryPoint
@@ -54,6 +55,9 @@ class LoginFragment : Fragment() {
                     }
                 }
             }
+        }
+        binding.tvGoToLogin.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
     }
 

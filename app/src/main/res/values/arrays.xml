@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="direction_angkot">
+        <item>@string/antapani_ciroyom</item>
+        <item>@string/cicaheum_ciroyom</item>
+    </array>
+</resources>
