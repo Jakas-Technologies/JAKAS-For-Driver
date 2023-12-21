@@ -12,12 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MapsActivity : AppCompatActivity() {
 
-    //    private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
-
-    /* private var serviceRunning = false
-
-     private var markerPosition: Marker? = null*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,38 +29,11 @@ class MapsActivity : AppCompatActivity() {
         binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                // Check the position and disable swiping if needed
                 binding.viewPager.isUserInputEnabled = position != 0
             }
         })
-        /*val mapFragment = supportFragmentManager
-            .findFragmentById(R.id.map) as SupportMapFragment
-        mapFragment.getMapAsync(this)
-
-        binding.btnShareLocation.setOnClickListener {
-            sendCommandToService(ACTION_START_SERVICE)
-        }
-
-        binding.btnStopShareLocation.setOnClickListener {
-            sendCommandToService(ACTION_STOP_SERVICE)
-        }*/
-//        subscribeToObservers()
     }
 
-    /*private fun serviceIsTracking(isTracking: Boolean) {
-        this.serviceRunning = isTracking
-        if (isTracking) {
-            binding.btnShareLocation.visibility = View.GONE
-            binding.btnStopShareLocation.visibility = View.VISIBLE
-        } else {
-            binding.btnShareLocation.visibility = View.VISIBLE
-            binding.btnStopShareLocation.visibility = View.GONE
-        }
-    }
-
-    override fun onMapReady(googleMap: GoogleMap) {
-        mMap = googleMap
-    }*/
 
 
     companion object {

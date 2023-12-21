@@ -12,6 +12,7 @@ import androidx.fragment.app.activityViewModels
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
@@ -111,10 +112,17 @@ class MapMainFragment : Fragment() {
         }
         LocationTrackerService.angkotPosition.observe(viewLifecycleOwner) { data ->
             if (serviceRunning) {
+                val latLng = LatLng(data.latitude, data.longitude)
                 markerPosition?.remove()
-                markerPosition = map?.addMarker(MarkerOptions().position(data))
+                val markerOption = MarkerOptions().apply {
+                    position(latLng)
+                    rotation(data.bearing)
+                    anchor(0.5f, 0.5f)
+                    icon(BitmapDescriptorFactory.fromResource(R.drawable.img_angkot))
+                }
+                markerPosition = map?.addMarker(markerOption)
                 val camera = CameraPosition.builder()
-                    .target(data)
+                    .target(latLng)
                     .zoom(MAP_ZOOM)
                     .build()
                 map?.animateCamera(CameraUpdateFactory.newCameraPosition(camera), 100, null)

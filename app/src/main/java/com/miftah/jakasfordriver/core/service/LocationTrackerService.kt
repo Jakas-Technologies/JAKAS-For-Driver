@@ -3,6 +3,7 @@ package com.miftah.jakasfordriver.core.service
 import android.annotation.SuppressLint
 import android.app.PendingIntent
 import android.content.Intent
+import android.location.Location
 import android.os.Looper
 import androidx.core.app.NotificationCompat
 import androidx.lifecycle.LifecycleService
@@ -36,7 +37,7 @@ class LocationTrackerService : LifecycleService() {
     lateinit var socketHandlerService: SocketHandlerService
 
     companion object {
-        val angkotPosition = MutableLiveData<LatLng>()
+        val angkotPosition = MutableLiveData<Location>()
         val userPosition = MutableLiveData<List<LatLng>>()
         val isTracking = MutableLiveData<Boolean>()
     }
@@ -86,7 +87,6 @@ class LocationTrackerService : LifecycleService() {
         socketHandlerService.initSession()
         userPosition.postValue(mutableListOf())
         isTracking.postValue(true)
-        angkotPosition.postValue(LatLng(0.0, 0.0))
     }
 
     @SuppressLint("MissingPermission")
@@ -117,7 +117,7 @@ class LocationTrackerService : LifecycleService() {
                         location.latitude,
                         location.longitude
                     )
-                    angkotPosition.postValue(lastLatLng)
+                    angkotPosition.postValue(location)
                     socketHandlerService.sendDriverPosition(lastLatLng)
 //                    socketHandlerService.getPassengerPosition {
 //                        Timber.d("what")

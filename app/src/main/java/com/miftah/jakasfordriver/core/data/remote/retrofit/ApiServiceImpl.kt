@@ -14,5 +14,4 @@ class ApiServiceImpl @Inject constructor(
 
     override suspend fun register(registerRequest: RegisterRequest): RegisterResponse =
         apiService.register(registerRequest)
-
 }

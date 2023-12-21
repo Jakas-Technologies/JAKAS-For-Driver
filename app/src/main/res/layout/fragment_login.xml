@@ -61,7 +61,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:boxStrokeColor="@color/black"
-                    app:boxStrokeWidth="5dp" />
+                    app:boxStrokeWidth="5dp"
+                    android:inputType="textEmailAddress"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout

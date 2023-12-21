@@ -8,4 +8,6 @@
     <string name="qrCode">QrCode</string>
     <string name="cicaheum_ciroyom">Cicaheum-Ciroyom</string>
     <string name="antapani_ciroyom">Antapani-Ciroyom</string>
+    <string name="home">Home</string>
+    <string name="account">Account</string>
 </resources>
