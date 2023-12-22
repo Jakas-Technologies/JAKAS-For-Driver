@@ -6,12 +6,11 @@ import com.miftah.jakasfordriver.core.data.remote.dto.request.LoginRequest
 import com.miftah.jakasfordriver.core.data.remote.dto.request.RegisterRequest
 import com.miftah.jakasfordriver.core.data.remote.dto.response.LoginResponse
 import com.miftah.jakasfordriver.core.data.remote.dto.response.LogoutResponse
+import com.miftah.jakasfordriver.core.data.remote.dto.response.MidtransResponse
 import com.miftah.jakasfordriver.core.data.remote.dto.response.QrResponse
 import com.miftah.jakasfordriver.core.data.remote.dto.response.RegisterResponse
 import com.miftah.jakasfordriver.core.data.remote.retrofit.ApiService
-import com.miftah.jakasfordriver.utils.Passenger
 import com.miftah.jakasfordriver.utils.Result
-import com.miftah.jakasfordriver.utils.toPassengerList
 import retrofit2.HttpException
 import timber.log.Timber
 import javax.inject.Inject
@@ -51,10 +50,10 @@ class AppRepository @Inject constructor(
         }
     }
 
-    fun getMidtransUpdate(): LiveData<Result<List<Passenger>>> = liveData {
+    fun getMidtransUpdate(): LiveData<Result<MidtransResponse>> = liveData {
         emit(Result.Loading)
         try {
-            val client = apiService.getMidtransUpdate().toPassengerList()
+            val client = apiService.getMidtransUpdate()
             emit(Result.Success(client))
         } catch (e: HttpException) {
             Timber.e(e)

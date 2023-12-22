@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.miftah.jakasfordriver.databinding.FragmentMapListBinding
 import com.miftah.jakasfordriver.utils.Result
+import com.miftah.jakasfordriver.utils.toPassengerList
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -55,7 +56,8 @@ class MapListFragment : Fragment() {
 
                     is Result.Success -> {
                         binding.progressBar.visibility = View.GONE
-                        adapter.submitList(result.data)
+                        binding.tvTotalPrice.text = result.data.totalFare
+                        adapter.submitList(result.data.toPassengerList())
                     }
                 }
             }
