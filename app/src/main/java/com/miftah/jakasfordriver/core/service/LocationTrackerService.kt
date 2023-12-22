@@ -38,7 +38,7 @@ class LocationTrackerService : LifecycleService() {
 
     companion object {
         val angkotPosition = MutableLiveData<Location>()
-        val userPosition = MutableLiveData<List<LatLng>>()
+        val userPosition = MutableLiveData<LatLng>()
         val isTracking = MutableLiveData<Boolean>()
     }
 
@@ -50,11 +50,9 @@ class LocationTrackerService : LifecycleService() {
             updateLocationTracking(it)
         }
 
-        socketHandlerService.getPassengerPosition { jsonDataList ->
-            jsonDataList.forEach { jsonData ->
-                Timber.d("get Loc")
-//                val geoJson = Gson().fromJson(jsonData, GeoGamma::class.java)
-            }
+        socketHandlerService.getPassengerPosition { data ->
+            Timber.tag("SOCKET").d("GET PASSENGER!")
+//            userPosition.postValue(LatLng(data.coords.latitude, data.coords.longitude))
         }
     }
 
@@ -85,7 +83,7 @@ class LocationTrackerService : LifecycleService() {
 
     private fun postInitialValues() {
         socketHandlerService.initSession()
-        userPosition.postValue(mutableListOf())
+//        userPosition.postValue(mutableListOf())
         isTracking.postValue(true)
     }
 
@@ -119,10 +117,6 @@ class LocationTrackerService : LifecycleService() {
                     )
                     angkotPosition.postValue(location)
                     socketHandlerService.sendDriverPosition(lastLatLng)
-//                    socketHandlerService.getPassengerPosition {
-//                        Timber.d("what")
-//                    }
-//                    Timber.d("NEW LOCATION: ${location.latitude}, ${location.longitude}")
                 }
             }
         }

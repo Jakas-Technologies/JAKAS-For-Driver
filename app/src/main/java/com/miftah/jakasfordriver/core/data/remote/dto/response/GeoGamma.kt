@@ -1,4 +1,4 @@
-package com.miftah.jakasfordriver.core.data.remote.response
+package com.miftah.jakasfordriver.core.data.remote.dto.response
 
 import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable

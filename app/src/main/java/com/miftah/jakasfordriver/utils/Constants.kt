@@ -1,7 +1,13 @@
 package com.miftah.jakasfordriver.utils
 
+import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.datastore.preferences.core.stringPreferencesKey
+import java.text.NumberFormat
+import java.util.Locale
+
 object Constants {
-    const val BASE_URL = "http://34.101.89.120:4000/"
+    const val BASE_URL = "http://34.128.112.136:3000/"
 
     const val REQUEST_CODE_LOCATION_PERMISSION = 0
 
@@ -19,5 +25,14 @@ object Constants {
 
     const val MAP_ZOOM = 20f
 
+    const val SHARED_PREFERENCES_KEY = "SHARED_PREFERENCES_KEY"
+    val TOKEN_KEY = stringPreferencesKey("token")
+    val ID_KEY = intPreferencesKey("id")
+    val IS_LOGIN_KEY = booleanPreferencesKey("isLogin")
 
+
+    fun formatToRupiah(amount: Int): String {
+        val currencyFormat = NumberFormat.getCurrencyInstance(Locale("id", "ID"))
+        return currencyFormat.format(amount.toLong())
+    }
 }

@@ -1,4 +1,4 @@
-package com.miftah.jakasfordriver.core.data.remote.request
+package com.miftah.jakasfordriver.core.data.remote.dto.request
 
 data class LoginRequest(
     val email: String,

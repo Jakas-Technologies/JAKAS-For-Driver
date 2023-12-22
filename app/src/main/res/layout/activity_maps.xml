@@ -27,29 +27,4 @@
         map:layout_constraintEnd_toEndOf="parent"
         map:layout_constraintBottom_toBottomOf="parent"/>
 
-    <!--<fragment
-        android:id="@+id/fragment_container_main"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:defaultNavHost="true"
-        app:navGraph="@navigation/maps_graph" />-->
-
-    <!--<androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_share_location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Share Location"
-        android:visibility="visible"
-        map:layout_constraintBottom_toBottomOf="parent"
-        map:layout_constraintEnd_toEndOf="parent"/>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_stop_share_location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Stop Share"
-        android:visibility="gone"
-        map:layout_constraintBottom_toBottomOf="parent"
-        map:layout_constraintEnd_toEndOf="parent"/>-->
 </androidx.constraintlayout.widget.ConstraintLayout>

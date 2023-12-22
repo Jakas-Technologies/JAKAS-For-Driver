@@ -67,7 +67,6 @@ class MapMainFragment : Fragment() {
 
         mapBottomSheetBehavior = BottomSheetBehavior.from(view.findViewById(R.id.map_inc))
 
-
         viewModel.serviceLive.observe(viewLifecycleOwner) {
             serviceRunning = it
             btnState()
@@ -129,7 +128,9 @@ class MapMainFragment : Fragment() {
             }
         }
         LocationTrackerService.userPosition.observe(viewLifecycleOwner) {
+            if (serviceRunning) {
 
+            }
         }
     }
 
