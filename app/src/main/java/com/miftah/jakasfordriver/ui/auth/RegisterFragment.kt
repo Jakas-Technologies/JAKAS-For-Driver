@@ -34,32 +34,42 @@ class RegisterFragment : Fragment() {
             val username = binding.edRegisUsername.text.toString()
             val email = binding.edRegisEmail.text.toString()
             val password = binding.edRegisPassword.text.toString()
-            val age = binding.edRegisAge.text.toString().toInt()
+            val age = binding.edRegisAge.text.toString()
             val routeName = binding.edRegisDirection.text.toString()
             val licensePlate = binding.edRegisLicense.text.toString()
-            viewModel.userRegis(username = username, email = email, password = password, age = age, licensePlate = licensePlate, routeName = routeName)
-                .observe(viewLifecycleOwner) { data ->
-                    when (data) {
-                        is Result.Loading -> binding.progressBar.visibility = View.VISIBLE
-                        is Result.Error -> {
-                            binding.progressBar.visibility = View.GONE
-                            Toast.makeText(
-                                requireContext(),
-                                "Error",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
+            if (username.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty() && age.isNotEmpty() && routeName.isNotEmpty() && licensePlate.isNotEmpty()) {
+                viewModel.userRegis(
+                    username = username,
+                    email = email,
+                    password = password,
+                    age = age.toInt(),
+                    licensePlate = licensePlate,
+                    routeName = routeName
+                )
+                    .observe(viewLifecycleOwner) { data ->
+                        when (data) {
+                            is Result.Loading -> binding.progressBar.visibility = View.VISIBLE
+                            is Result.Error -> {
+                                binding.progressBar.visibility = View.GONE
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Error",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
 
-                        is Result.Success -> {
-                            binding.progressBar.visibility = View.GONE
-                            Toast.makeText(
-                                requireContext(),
-                                "Sukses", Toast.LENGTH_SHORT
-                            ).show()
-                            findNavController().popBackStack()
+                            is Result.Success -> {
+                                binding.progressBar.visibility = View.GONE
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Sukses", Toast.LENGTH_SHORT
+                                ).show()
+                                findNavController().popBackStack()
+                            }
                         }
                     }
-                }
+            }
+
         }
     }
 

@@ -35,27 +35,29 @@ class LoginFragment : Fragment() {
         binding.btnLogin.setOnClickListener {
             val email = binding.edLoginEmail.editText?.text.toString()
             val pass = binding.edLoginPassword.editText?.text.toString()
-            viewModel.userLogin(email, pass).observe(viewLifecycleOwner) { result ->
-                when (result) {
-                    is Result.Loading -> binding.progressBar.visibility = View.VISIBLE
-                    is Result.Error -> {
-                        binding.progressBar.visibility = View.GONE
-                        Toast.makeText(
-                            requireContext(),
-                            "Error",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
+            if (email.isNotEmpty() && pass.isNotEmpty()) {
+                viewModel.userLogin(email, pass).observe(viewLifecycleOwner) { result ->
+                    when (result) {
+                        is Result.Loading -> binding.progressBar.visibility = View.VISIBLE
+                        is Result.Error -> {
+                            binding.progressBar.visibility = View.GONE
+                            Toast.makeText(
+                                requireContext(),
+                                "Error",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
 
-                    is Result.Success -> {
-                        binding.progressBar.visibility = View.GONE
-                        Toast.makeText(
-                            requireContext(),
-                            "Sukses", Toast.LENGTH_SHORT
-                        ).show()
-                        viewModel.createSave(result.data.user.id, result.data.accessToken)
-                        Intent(requireActivity(), MainActivity::class.java).let {
-                            startActivity(it)
+                        is Result.Success -> {
+                            binding.progressBar.visibility = View.GONE
+                            Toast.makeText(
+                                requireContext(),
+                                "Sukses", Toast.LENGTH_SHORT
+                            ).show()
+                            viewModel.createSave(result.data.user.id, result.data.accessToken)
+                            Intent(requireActivity(), MainActivity::class.java).let {
+                                startActivity(it)
+                            }
                         }
                     }
                 }
